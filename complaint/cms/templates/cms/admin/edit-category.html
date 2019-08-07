@@ -1,0 +1,64 @@
+{% extends 'cms/admin/base.html' %}
+{% load static %}
+{% block title %}Edit Category{% endblock %}
+{% block links %}
+	<link type="text/css" href="{% static 'cms/admin/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+	<link type="text/css" href="{% static 'cms/admin/bootstrap/css/bootstrap-responsive.min.css' %}" rel="stylesheet">
+	<link type="text/css" href="{% static 'cms/admin/css/theme.css' %}" rel="stylesheet">
+	<link type="text/css" href="{% static 'cms/admin/images/icons/css/font-awesome.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<div class="module">
+	<div class="module-head">
+		<h3>Category</h3>
+	</div>
+	<div class="module-body">
+		{% if message %}
+		<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+		<strong>Well done!</strong>	{{ message }}
+		</div>
+		{% endif %}
+		<br />
+		{% for cat in category %}
+		<form action="./{{ cat.category_id }}" class="form-horizontal row-fluid" name="Category" method="post" >{% csrf_token %}
+					
+			<div class="control-group">
+				<label class="control-label" for="basicinput">Category Name</label>
+				<div class="controls">
+					<input type="text" placeholder="Enter category Name"  name="category" value="{{ cat.category_name }}" class="span8 tip" required>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="basicinput">Description</label>
+				<div class="controls">
+					<textarea class="span8" name="description" rows="5">{{ cat.category_description }}</textarea>
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls">
+					<button type="submit" name="submit" class="btn">Update</button>
+				</div>
+			</div>
+			{% endfor %}
+		</form>
+	</div>
+</div>
+{% endblock %}
+{% block scripts %}
+	<script src="{% static 'cms/admin/scripts/jquery-1.9.1.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'cms/admin/scripts/jquery-ui-1.10.1.custom.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'cms/admin/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'cms/admin/scripts/flot/jquery.flot.js' %}" type="text/javascript"></script>
+	<script src="{% static 'cms/admin/scripts/datatables/jquery.dataTables.js' %}"></script>
+	<script>
+		$(document).ready(function() {
+			$('.datatable-1').dataTable();
+			$('.dataTables_paginate').addClass("btn-group datatable-pagination");
+			$('.dataTables_paginate > a').wrapInner('<span />');
+			$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
+			$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
+		} );
+	</script
+{% endblock %}

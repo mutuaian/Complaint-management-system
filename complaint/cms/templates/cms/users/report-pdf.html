@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title%}{% endblock%}</title>
+    <style type="text/css">
+        body {
+            font-weight: 200;
+            font-size: 14px;
+        }
+        .header {
+            font-size: 20px;
+            font-weight: 100;
+            text-align: center;
+            color: #007cae;
+        }
+        .title {
+            font-size: 22px;
+            font-weight: 100;
+            /* text-align: right;*/
+            padding: 10px 20px 0px 20px;  
+        }
+        .title span {
+            color: #007cae;
+            padding-bottom: 10px;
+        }
+        .details {
+            padding: 10px 20px 0px 20px;
+            text-align: left !important;
+            /*margin-left: 40%;*/
+        }
+        .hrItem {
+            border: none;
+            height: 1px;
+            /* Set the hr color */
+            color: #333; /* old IE */
+            background-color: #fff; /* Modern Browsers */
+        }
+        .address li{
+            text-align: right;
+            list-style-type: none;
+        }
+        table{
+            border: 1px solid black;
+        }
+        .thead{
+            padding-top: 5px;
+        }
+        .tdata{
+            padding: 5px 0px 0px 5px;
+        }
+    </style>
+</head>
+    <body>
+        <div class='wrapper'>
+            <div class="uoeld-header">
+                <img src="/home/ian/Django/complaint/cms/static/cms/images/uoelogo.png" alt="uoeld" />
+                <ul class="address">
+                    <li>P.O BOX 1125-30100 ELDORET KENYA</li>
+                    <li>TEL +254-532063111, FAX: +254-532063257</li>
+                    <li>Email:vc@uoeld.ac.ke ~ web:www.uoeld.ac.ke</li>
+                </ul>
+            </div>
+            <div class='header'>
+                <p class='title'>COMPLAINT RESPONSE REPORT </p>
+                 <hr class='hrItem' />
+            </div>
+            <div class='details'>
+                <span style="font-weight: bold;font-size: 1.2em">Admission No/Staff No: </span><span>{{ user.complainant_id }}</span><br/>
+                <span style="font-weight: bold;font-size: 1.2em">Name: </span><span>{{ user.complainant_name }} </span><br/>
+                <span style="font-weight: bold;font-size: 1.2em">Date: </span><span>{{ today }}</span>
+            </div>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="thead" style="width: 25%">Complaint Id</th>
+                            <th class="thead" style="width: 30%"> Category Name</th>
+                            <th class="thead">Date Posted</th>
+                            <th class="thead" style="width: 35%">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for comp in comp_details %}
+                        <tr>
+                            <td data-title="Complaint Id" class="tdata">{{comp.complaint_id}}</td>
+                            <td data-title="Complaint Name" class="tdata">{{comp.category_id.category_name}}</td>
+                            <td data-title="Date Posted" style="text-align: center;">{{comp.reg_date}}</td>
+                            {% if comp.status == null %}
+                            <td data-title="Status" class="tdata">Not processed</td>
+                            {% else %}
+                            <td data-title="Status" class="tdata">{{ comp.status }}</td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

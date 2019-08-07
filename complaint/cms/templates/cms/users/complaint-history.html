@@ -1,0 +1,67 @@
+{% extends 'cms/users/base.html' %}
+{% load static %}
+{% block title %}User | complaints history{% endblock %}
+{% block links %}
+    <link href="{% static 'cms/users/assets/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'cms/users/assets/font-awesome/css/font-awesome.css' %}" rel="stylesheet" />
+    <link href="{% static 'cms/users/assets/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'cms/users/assets/css/style-responsive.css' %}" rel="stylesheet">
+    <link href="{% static 'cms/users/assets/css/table-responsive.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<h3><i class="fa fa-angle-right"></i>Your Complaint History</h3>
+<div class="row mt">
+	<div class="col-lg-12">
+  		<div class="content-panel">
+			<section id="unseen">
+				<table class="table table-bordered table-striped table-condensed">
+					<thead>
+						<tr>
+							<th>Complaint #ID</th>
+							<th>Reg Date</th>
+							<th>Status</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+				    
+				    <tbody>
+				    {% for complaint in complainthistory %}
+					    <tr>
+					        <td align="center">{{ complaint.complaint_id }}</td>
+					        <td align="center">{{ complaint.reg_date }}</td>
+					        <td align="center">
+					            {% if complaint.status == null %}
+					           		<button type="button" class="btn btn-theme04">Not Process Yet</button>
+					            {% endif %}
+					            {% if complaint.status == 'in process' %}
+									<button type="button" class="btn btn-warning">In Process</button>
+					            {% endif %}
+					            {% if complaint.status == 'closed' %}
+									<button type="button" class="btn btn-success">Closed</button>
+								{% endif %}
+
+					        <td align="center">
+						        <a href="{% url 'cms:complaintdetails'  complaint.complaint_id %}">
+									<button type="button" class="btn btn-primary">View Details</button>
+								</a>
+					        </td>
+					    </tr>
+					{% endfor %}
+				    </tbody>
+				</table>
+			</section>
+		</div><!-- /content-panel -->
+	</div><!-- /col-lg-4 -->			
+</div><!-- /row -->
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'cms/users/assets/js/jquery.js' %}"></script>
+    <script src="{% static 'cms/users/assets/js/bootstrap.min.js' %}"></script>
+    <script class="include" type="text/javascript" src="{% static 'cms/users/assets/js/jquery.dcjqaccordion.2.7.js' %}"></script>
+    <script src="{% static 'cms/users/assets/js/jquery.scrollTo.min.js' %}"></script>
+    <script src="{% static 'cms/users/assets/js/jquery.nicescroll.js' %}" type="text/javascript"></script>
+    <!--common script for all pages-->
+    <script src="{% static 'cms/users/assets/js/common-scripts.js' %}"></script>
+{% endblock %}

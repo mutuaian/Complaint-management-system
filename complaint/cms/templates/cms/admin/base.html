@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{% block title %} CMS | Admin {% endblock %}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block links %}
+    <link href="{% static  'cms/admin/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static  'cms/admin/bootstrap/css/bootstrap-responsive.min.css' %}" rel="stylesheet">
+    <link href="{% static  'cms/admin/css/theme.css' %}" rel="stylesheet">
+    <link href="{% static  'cms/admin/images/icons/css/font-awesome.css' %}" rel="stylesheet">
+    {% endblock %}
+</head>
+
+<body>
+    <div class="navbar navbar-fixed-top" style="background-color: black;">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                    <i class="icon-reorder shaded"></i>
+                </a>
+
+                <a class="brand" href="index.html">
+                    CMS | Admin
+                </a>
+
+                <div class="nav-collapse collapse navbar-inverse-collapse">
+                    <ul class="nav pull-right">
+                        <li><a href="#">
+                            Admin
+                            </a></li>
+                        <li class="nav-user dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="{% static 'cms/admin/images/user.png' %}" class="nav-avatar" />
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'cms:changepassword' %}">Change Password</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{% url 'cms:logout' %}">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.nav-collapse -->
+            </div>
+        </div><!-- /navbar-inner -->
+    </div><!-- /navbar -->
+
+<div class="wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <div class="sidebar">
+                    <ul class="widget widget-menu unstyled">
+                        <li>
+                            <a class="collapsed" data-toggle="collapse" href="#togglePages">
+                                <i class="menu-icon icon-cog"></i>
+                                <i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right"></i>
+                                Manage Complaint
+                            </a>
+                            <ul id="togglePages" class="collapse unstyled">
+                                <li>
+                                    <a href="{% url 'cms:notprocessedcomplaints' %}">
+                                      <i class="icon-tasks"></i>
+                                      Not Process Yet Complaint
+                                      <b class="label orange pull-right">
+                                      {{ numberofnotprocessed_complaints }}</b>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'cms:inprocesscomplaints' %}">
+                                      <i class="icon-tasks"></i>
+                                      InProcess Complaint
+                                      <b class="label orange pull-right">
+                                      {{ numberofinprocess_complaints }}</b>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'cms:closedcomplaints' %}">
+                                      <i class="icon-inbox"></i>
+                                      Closed Complaints
+                                  <b class="label green pull-right">
+                                  {{ numberofclosed_complaints }}</b>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <a href="{% url 'cms:manageusers' %}">
+                                <i class="menu-icon icon-group"></i>
+                                Manage users
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="{% url 'cms:adminreport' %}">
+                                <i class="menu-icon icon-group"></i>
+                                View Reports
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="widget widget-menu unstyled">
+                        <li>
+                            <a href="{% url 'cms:categories' %}">
+                                <i class="menu-icon icon-tasks"></i> 
+                                Add Category 
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'cms:subcategories' %}">
+                                <i class="menu-icon icon-tasks"></i>
+                                Add Sub-Category 
+                            </a>
+                        </li>
+                    </ul>
+
+                    <ul class="widget widget-menu unstyled">
+                        <li>
+                            <a href="user-logs.php">
+                                <i class="menu-icon icon-tasks"></i>
+                                User Login Log 
+                            </a>
+                        </li>
+                        
+                        <li>
+                            <a href="{% url  'cms:logout' %}">
+                                <i class="menu-icon icon-signout"></i>
+                                Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div><!--/.sidebar-->
+            </div><!--/.span3-->    
+            <div class="span9">
+                <div class="content">
+                    {% block content %}
+                    <div class="module">
+                        <div class="module-head">
+                            <h3>yo</h3>
+                        </div>
+                    </div>
+                    {% endblock %}
+                </div><!--/.content-->
+            </div><!--/.span9-->
+        </div>
+    </div><!--/.container-->
+</div><!--/.wrapper-->
+
+{% block scripts %}
+<script src="{% static 'cms/admin/scripts/jquery-1.9.1.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'cms/admin/scripts/jquery-ui-1.10.1.custom.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'cms/admin/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script> 
+{% endblock %}
+</body>
+
+</html>
