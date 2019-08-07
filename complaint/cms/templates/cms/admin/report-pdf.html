@@ -1,0 +1,30 @@
+{% extends 'cms/users/base-pdf.html' %}
+{% load static %}
+{% block content %}
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th class="thead">Department</th>
+                <th class="thead"> No. complaints</th>
+                <th class="thead">Percentage</th>
+                <th class="thead">Not processed</th>
+                <th class="thead">In process</th>
+                <th class="thead">Closed</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, cat in cat_list.items %}
+            <tr>
+                <td data-title="Department" class="tdata">{{ cat.category_name }}</td>
+                <td data-title="No.complaints" class="tdata">{{ cat.number }}</td>
+                <td data-title="Percentage" class="tdata">{{ cat.percentage }}%</td>
+                <td data-title="NotProcessed" class="tdata">{{ cat.notprocessed }}</td>
+                <td data-title="Inprocess" class="tdata">{{ cat.inprocess }}</td>
+                <td data-title="Closed" class="tdata">{{ cat.closed }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

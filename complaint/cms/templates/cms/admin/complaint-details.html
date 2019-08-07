@@ -1,0 +1,106 @@
+{% extends 'cms/admin/base.html' %}
+{% load static %}
+{% block title %}Complaint Details{% endblock %}
+{% block links %}
+	<link type="text/css" href="{% static 'cms/admin/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+	<link type="text/css" href="{% static  'cms/admin/bootstrap/css/bootstrap-responsive.min.css' %}" rel="stylesheet">
+	<link type="text/css" href="{% static  'cms/admin/css/theme.css' %}" rel="stylesheet">
+	<link type="text/css" href="{% static  'cms/admin/images/icons/css/font-awesome.css" rel="stylesheet' %}">
+	<script language="javascript" type="text/javascript">
+		var popUpWin=0;
+		function popUpWindow(URLStr, left, top, width, height)
+		{
+		 if(popUpWin)
+		{
+		if(!popUpWin.closed) popUpWin.close();
+		}
+		popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width='+600+',height='+600+',left='+left+', top='+top+',screenX='+left+',screenY='+top+'');
+		}
+	</script>
+{% endblock %}
+{% block content %}
+<div class="module">
+	<div class="module-head">
+		<h3>Complaint Details</h3>
+	</div>
+	<div class="module-body table">
+		<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
+			<tbody>
+				{% for cmpl in cmpl_details %}
+				<tr>
+					<td><b>Complaint Number</b></td>
+					<td>{{ complaint_id }}</td>
+					<td><b>Complainant Id</b></td>
+					<td>{{ cmpl.complainant_id.complainant_id }}</td>
+					<td><b>Reg Date</b></td>
+					<td>{{ cmpl.reg_date }}</td>
+				</tr>
+
+				<tr>
+					<td><b>Category </b></td>
+					<td>{{ cmpl.category_id.category_name }}</td>
+					<td><b>SubCategory</b></td>
+					<td>{{ cmpl.subcategory_id.subcategory_name }}</td>
+					<td><b>Complaint Title</b></td>
+					<td>{{ cmpl.complaint_title }}</td>
+				</tr>
+				<tr>
+					<td><b>Complaint Details </b></td>
+					<td colspan="5">{{ cmpl.complaint_details }}</td>
+				</tr>
+				<tr>
+					<td><b>File(if any) </b></td>
+					<td colspan="5">
+						{%if cmpl.complaint_file %}
+							<a href="{{ cmpl.complaint_file }}"> View File</a>
+						{% else %}
+						   File Not Available
+						{% endif %}
+					</td>
+				</tr>
+				<tr>
+					<td><b>Remark</b></td>
+					<td colspan="5">{{ remark }}  </td>
+				</tr>
+
+				<tr>
+					<td><b>Remark Date</b></td>
+					<td colspan="5">{{ remarkdate }}</td>
+				</tr>
+
+				<tr>
+					<td><b>Status</b></td>
+					<td colspan="5">
+						{% if cmpl.status == null %}
+						<p class="text-danger">Not processed</p>
+						{% else %}
+						<p class="text-success">{{ cmpl.status }}</p>
+						{% endif %}
+					</td>
+				</tr>
+
+				<tr>
+					<td><b>Action</b></td>
+					<td colspan="5"> 
+					{% if cmpl.status == 'closed' %}
+					{% else %}
+						<a href="javascript:void(0);" onClick="popUpWindow('http://localhost:8000/cms/admin/updatecomplaint/{{complaint_id}}')" title="Update order">
+						<button type="button" class="btn btn-primary">Take Action</button>
+						</a>
+					{% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+</div>						
+
+{% endblock %}
+{% block scripts %}
+	<script src="{% static  'cms/admin/scripts/jquery-1.9.1.min.js' %}" type="text/javascript"></script>
+	<script src="{% static  'cms/admin/scripts/jquery-ui-1.10.1.custom.min.js' %}" type="text/javascript"></script>
+	<script src="{% static  'cms/admin/bootstrap/js/bootstrap.min.js' %}" type="text/javascript"></script>
+	<script src="{% static  'cms/admin/scripts/flot/jquery.flot.js' %}" type="text/javascript"></script>
+	<script src="{% static  'cms/admin/scripts/datatables/jquery.dataTables.js' %}"></script>
+
+{% endblock %}

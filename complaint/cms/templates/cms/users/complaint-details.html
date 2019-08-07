@@ -1,0 +1,117 @@
+{% extends 'cms/users/base.html' %}
+{% load static %}
+{% block title %}User | complaint details{% endblock %}
+{% block links %}
+    <link href="{% static 'cms/users/assets/css/bootstrap.css' %}" rel="stylesheet">
+    <link href="{% static 'cms/users/assets/font-awesome/css/font-awesome.css' %}" rel="stylesheet" />
+    <link href="{% static 'cms/users/assets/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'cms/users/assets/css/style-responsive.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<h3><i class="fa fa-angle-right"></i> Complaint Details</h3>
+<hr />
+	{% for cmpl in cmpl_details %}
+	<div class="row mt">
+		<label class="col-sm-2 col-sm-2 control-label"><b>Complaint Number : </b></label>
+		<div class="col-sm-4">
+			<p>{{ complaint_id }}</p>
+		</div>
+		<label class="col-sm-2 col-sm-2 control-label"><b>Reg. Date :</b></label>
+		<div class="col-sm-4">
+			<p>{{ cmpl.reg_date }}</p>
+		</div>
+	</div>
+
+
+	<div class="row mt">
+		<label class="col-sm-2 col-sm-2 control-label"><b>Category :</b></label>
+		<div class="col-sm-4">
+			<p>{{ cmpl.category_id.category_name }}</p>
+		</div>
+		<label class="col-sm-2 col-sm-2 control-label"><b>Sub Category :</b> </label>
+		<div class="col-sm-4">
+			<p>{{ cmpl.subcategory_id.subcategory_name }}</p>
+		</div>
+	</div>
+
+
+
+	<div class="row mt">
+		<label class="col-sm-2 col-sm-2 control-label"><b>Complaint Type :</b></label>
+		<div class="col-sm-4">
+			<p>{{ cmpl.complaint_type }}</p>
+		</div>
+		<label class="col-sm-2 col-sm-2 control-label"><b>Status:</b></label>
+		<div class="col-sm-4">
+			{% if cmpl.status == null %}
+				<p style="color: red">Not processed</p>
+			{% else %}
+				<p style="color: green">{{ cmpl.status }}</p>
+			{% endif %}
+		</div>
+	</div>  
+
+	</p>
+		</div>
+	</div> 
+
+	<div class="row mt">
+		<label class="col-sm-2 col-sm-2 control-label"><b>Complaint Details </b></label>
+		<div class="col-sm-10">
+			<p>{{ cmpl.complaint_details }}</p>
+		</div>
+	</div> 
+
+
+	<div class="row mt">
+		<label class="col-sm-2 col-sm-2 control-label"><b>Remark:</b></label>
+		<div class="col-sm-4">
+			<p>{{ remark }}</p>
+		</div>
+		<label class="col-sm-2 col-sm-2 control-label"><b>Remark Date :</b> </label>
+		<div class="col-sm-4">
+			<p>{{ remarkdate }}</p>
+		</div>
+	</div> 
+
+
+
+	<div class="row mt">
+		<label class="col-sm-2 col-sm-2 control-label"><b>File :</b></label>
+		<div class="col-sm-4">
+			<p>
+				{%if cmpl.complaint_file %}
+					<a href="{{ cmpl.complaint_file }}"> View File</a>
+				{% else %}
+				   File Not Available
+				{% endif %}
+			</p>
+		</div>
+	</div> 
+	{% endfor %}
+{% endblock %}
+{% block scripts %}
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="{% static 'cms/users/assets/js/jquery.js' %}"></script>
+    <script src="{% static 'cms/users/assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'cms/users/assets/js/jquery-ui-1.9.2.custom.min.js' %}"></script>
+    <script src="{% static 'cms/users/assets/js/jquery.ui.touch-punch.min.js' %}"></script>
+    <script class="include" type="text/javascript" src="{% static 'cms/users/assets/js/jquery.dcjqaccordion.2.7.js' %}"></script>
+    <script src="{% static 'cms/users/assets/js/jquery.scrollTo.min.js' %}"></script>
+    <script src="{% static 'cms/users/assets/js/jquery.nicescroll.js' %}" type="text/javascript"></script>
+
+
+    <!--common script for all pages-->
+    <script src="{% static 'cms/users/assets/js/common-scripts.js' %}"></script>
+
+    <!--script for this page-->
+    
+  <script>
+      //custom select box
+
+      $(function(){
+          $('select.styled').customSelect();
+      });
+
+  </script>
+{% endblock %}

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	{% for x in inprocess_complaints %}
+	{{ x.category_id.category_name }}
+	{% endfor %}
+</body>
+</html>
